@@ -21,20 +21,10 @@ class Movie extends Model
         $this->attributes['genres'] = json_encode($value);
     }
 
-    public static function search(Request $request){
-        $name = $request->input('name');
-        $term = $request->input('term');
+    public static function search($term, $skip, $take){
 
-        if($name){
-            $result = DB::table('movies')
-            ->where('name', 'LIKE', '%'.$name.'%')
-            ->get();
-            return $result;
-        } elseif($term) {
-            $result = DB::table('movies')
-            ->where('name', 'LIKE', '%'.$term.'%')
-            ->get();
-            return $result;
+        if($term!="" || ($skip!="" && $take!="")){
+            return Movie::search($term, $skip, $take);
         } else {
             return Movie::all();
         }

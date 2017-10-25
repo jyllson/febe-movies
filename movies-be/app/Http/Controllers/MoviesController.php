@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Movie;
-use Illuminate\Support\Facades\DB;
+
 
 class MoviesController extends Controller
 {
     public function index(Request $request){
-        return Movie::search($request);
+        $term = $request->input('term');
+        $skip = $request->input('skip');
+        $take = $request->input('take');
+        
+        return Movie::search($term, $skip, $take);
     }
 
     public function show($id){
