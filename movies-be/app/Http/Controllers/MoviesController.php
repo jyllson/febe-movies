@@ -9,16 +9,7 @@ use Illuminate\Support\Facades\DB;
 class MoviesController extends Controller
 {
     public function index(Request $request){
-        $term = $request->input('name');
-        if($term){
-            $result = DB::table('movies')
-            ->where('name', 'LIKE', '%'.$term.'%')
-            ->get();
-            return $result;
-        } else {
-            return Movie::all();
-        }
-    	
+        return Movie::search($request);
     }
 
     public function show($id){
