@@ -17,6 +17,14 @@ class MoviesController extends Controller
     }
 
     public function store(Request $request){
+        $validatedData = $request->validate([
+            'name' => 'required|unique',
+            'director' => 'required',
+            'duration' => 'required|min:1|max:500',
+            'release_date' => 'required',
+            'image_url' => 'url',
+            'release_date' => 'unique',
+        ]);
     	$movie = new Movie();
         $movie->name = $request->input('name');
         $movie->director = $request->input('director');
