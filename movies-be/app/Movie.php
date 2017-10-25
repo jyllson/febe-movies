@@ -10,5 +10,12 @@ class Movie extends Model
         'name', 'director', 'image_url', 'duration', 'release_date', 'genres'
     ];
 
-    
+    protected $casts = [
+        'genres' => 'array',
+    ];
+
+    public function setGenresAttribute($value)
+    {
+        $this->attributes['genres'] = json_encode($value);
+    }    
 }
