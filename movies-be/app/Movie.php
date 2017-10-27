@@ -23,8 +23,10 @@ class Movie extends Model
 
     public static function search($term, $skip, $take){
 
-        if($term!="" || ($skip!="" && $take!="")){
-            return Movie::search($term, $skip, $take);
+        if($term!="" && $skip=="" && $take==""){
+            return self::where('name', 'LIKE', '%'.$term.'%')->get();
+        } elseif($term!="" && $skip!="" && $take!=""){
+            return self::where('name', 'LIKE', '%'.$term.'%')->skip($skip)->take($take)->get();
         } else {
             return Movie::all();
         }
